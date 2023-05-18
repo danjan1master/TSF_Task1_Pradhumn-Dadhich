@@ -1,0 +1,31 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn as sns
+data= pd.read_csv ("https://raw.githubusercontent.com/AdiPersonalWorks/Random/master/student_scores%20-%20student_scores.csv")
+data.head(10)
+sns.regplot(data=data, x='Hours', y='Scores',ci=None)
+plt.xlabel('Hours/day')
+plt.ylabel('Scores')
+plt.show
+data.corr()
+x= data['Hours'].values.reshape(-1,1)
+y=data['Scores'].values.reshape(-1,1)
+from sklearn.linear_model import LinearRegression
+model = LinearRegression()
+model.fit(x_train, y_train)
+print('Model Trained')
+y_pred = model.predict(x_test)
+y_test.shape
+df = pd.DataFrame({'Actual':y_test.flatten(), 'Predicted':y_pred.flatten()})
+df
+hours= np.array(9.25).reshape(-1,1)
+predicted = model.predict(hours)
+print(f'''
+No of Hours:{hours.flatten()[0]}
+Marks predicted:{predicted.flatten()[0]}''')
+from sklearn.metrics import mean_squared_error
+print("R^2:{}",format(model.score(x_test,y_test)))
+rmse= np.sqrt(mean_squared_error(y_test,y_pred))
+print("Root mean Square Error:{}".format(rmse))
